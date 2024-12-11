@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct CustomTextField: View {
+    let imageName: String
+    let placeHolderText: String
+    let isSecureField: Bool
+    @Binding var text: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(spacing: 15) {
+            HStack {
+                Image(systemName: imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color(.darkGray))
+                if isSecureField{
+                    SecureField(placeHolderText, text: $text)
+                }else{
+                    TextField(placeHolderText, text: $text)
+                }
+            }
+            Divider()
+                .background(Color(.darkGray))
+        }
     }
-}
-
-#Preview {
-    CustomTextField()
 }

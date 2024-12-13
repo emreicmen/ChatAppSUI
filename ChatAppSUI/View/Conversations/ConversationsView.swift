@@ -15,12 +15,17 @@ struct ConversationsView: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             
+            
             NavigationLink("", destination: ChatsView(), isActive: $showChatView)
             //Chats
             ScrollView {
                 VStack(alignment: .leading){
                     ForEach((0...10), id: \.self){ _ in
-                        ConversationCell()
+                        NavigationLink {
+                            ChatsView()
+                        } label: {
+                            ConversationCell()
+                        }
                             .padding(.horizontal)
                     }
                 }

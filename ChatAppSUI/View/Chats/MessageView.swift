@@ -8,11 +8,42 @@
 import SwiftUI
 
 struct MessageView: View {
+    var isFromCurrentUser: Bool
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            if isFromCurrentUser {
+                Spacer()
+                Text("Some test message")
+                    .padding(10)
+                    .background(Color(.blue))
+                    .font(.system(size: 15))
+                    .clipShape(ChatBubble(isFromCurrentUser: true))
+                    .foregroundColor(.white)
+                    .padding(.leading, 100)
+                    .padding(.horizontal)
+            }else {
+                HStack(alignment: .bottom){
+                    Image("batman")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 30, height: 30)
+                        .clipShape(Circle())
+                    Text("Some test message")
+                        .padding(10)
+                        .background(Color(.systemGray5))
+                        .font(.system(size: 15))
+                        .clipShape(ChatBubble(isFromCurrentUser: false))
+                        .foregroundColor(.black)
+                }
+                .padding(.horizontal)
+                .padding(.trailing, 80)
+                Spacer()
+            }
+        }
     }
 }
 
 #Preview {
-    MessageView()
+    MessageView(isFromCurrentUser: false)
+    MessageView(isFromCurrentUser: true)
 }

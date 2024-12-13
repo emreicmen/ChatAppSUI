@@ -9,7 +9,23 @@ import SwiftUI
 
 struct ChatsView: View {
     var body: some View {
-        Text("Chats")
+        
+        VStack {
+            //Messages
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10){
+                    ForEach((0...10), id: \.self){ _ in
+                        MessageView(isFromCurrentUser: true)
+                    }
+                    
+                }
+            }
+            
+            //İnput textfield
+        }
+        .navigationTitle("Bruce Wayne")
+        .navigationBarTitleDisplayMode(.inline)
+        .padding(.vertical)
     }
 }
 

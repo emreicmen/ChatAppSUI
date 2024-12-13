@@ -9,7 +9,27 @@ import SwiftUI
 
 struct UserCell: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                //İmage
+                Image("batman")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 45, height: 45)
+                    .clipShape(Circle())
+                
+                //Message Info
+                VStack(alignment: .leading) {
+                    Text("The Batman")
+                        .font(.system(size: 15, weight: .semibold))
+                    Text("Bruce Wayne")
+                        .font(.system(size: 13))
+                }
+                .foregroundColor(.black)
+                Spacer()
+            }
+        }
+        .padding(.top)
     }
 }
 

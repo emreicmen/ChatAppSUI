@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct NewMessageView: View {
+    @Binding var showChatView: Bool
+    @Environment(\.presentationMode) var mode
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack(alignment: .leading){
+                ForEach((0...10), id: \.self){ _ in
+                    Button {
+                        showChatView.toggle()
+                        mode.wrappedValue.dismiss()
+                    } label: {
+                        UserCell()
+                    }
+
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    NewMessageView()
+    NewMessageView(showChatView: .constant(true))
 }

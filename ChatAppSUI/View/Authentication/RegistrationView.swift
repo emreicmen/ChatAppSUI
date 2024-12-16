@@ -14,6 +14,7 @@ struct RegistrationView: View {
     @State private var userName = ""
     @State private var fullName = ""
     @Environment(\.presentationMode) var mode
+    @ObservedObject var viewModel = AuthViewModel()
     
     var body: some View {
         
@@ -40,7 +41,7 @@ struct RegistrationView: View {
             }
             .padding(.leading)
             Button {
-                print("Handle Sign Up")
+                viewModel.register()
             } label: {
                 Text("Sign Up")
                     .font(.headline)

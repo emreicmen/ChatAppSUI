@@ -11,6 +11,7 @@ struct LoginView: View {
     
     @State private var email = ""
     @State private var password = ""
+    @ObservedObject var viewModel = AuthViewModel()
     
     var body: some View {
         
@@ -46,7 +47,7 @@ struct LoginView: View {
                     }
                 }
                 Button {
-                    print("Handle Sign In")
+                    viewModel.login()
                 } label: {
                     Text("Sign In")
                         .font(.headline)

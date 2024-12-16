@@ -22,6 +22,7 @@ struct CustomInputView: View {
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.body)
                     .frame(minHeight: 30)
+                    .padding(.leading, 10)
                 Button("", systemImage: "paperplane.fill") {
                     action()
                 }

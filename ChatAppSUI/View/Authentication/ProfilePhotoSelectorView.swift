@@ -41,9 +41,6 @@ struct ProfilePhotoSelectorView: View {
             .fullScreenCover(isPresented: $imagePickerPresented, onDismiss: loadImage) {
                 ImagePicker(image: $selectedImage)
             }
-//            .sheet(isPresented: $imagePickerPresented, onDismiss: loadImage) {
-//                ImagePicker(image: $selectedImage)
-//            }
             
             Text(profileImage == nil ? "Select a profile photo" : "Great! Tap to below to continue")
                 .font(.system(size: 20, weight: .semibold))

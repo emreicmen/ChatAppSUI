@@ -33,7 +33,8 @@ struct LoginView: View {
                         CustomTextField(imageName: "envelope.fill", placeHolderText: "E-mail", isSecureField: false, text: $email)
                         CustomTextField(imageName: "lock.shield", placeHolderText: "Password", isSecureField: true, text: $password)
                     }
-                    .padding([.top, .horizontal], 30)
+                    .padding(.horizontal,15)
+                    .padding(.top, 150)
                 }
                 HStack{
                     Spacer()

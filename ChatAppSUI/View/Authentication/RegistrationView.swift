@@ -19,6 +19,8 @@ struct RegistrationView: View {
     var body: some View {
         
         VStack{
+            NavigationLink("", destination: ProfilePhotoSelectorView(), isActive: $viewModel.didAuthenticateUser)
+            
             VStack(alignment: .leading, spacing: 10){
                 HStack {
                     Spacer()
@@ -37,7 +39,8 @@ struct RegistrationView: View {
                     CustomTextField(imageName: "person.text.rectangle", placeHolderText: "Full Name", isSecureField: false, text: $fullName)
                     CustomTextField(imageName: "lock.shield", placeHolderText: "Password", isSecureField: true, text: $password)
                 }
-                .padding([.top, .horizontal], 30)
+                .padding(.horizontal,15)
+                .padding(.top, 150)
             }
             .padding(.leading)
             Button {

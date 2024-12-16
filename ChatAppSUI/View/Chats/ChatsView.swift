@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChatsView: View {
+    @State private var messageText = ""
+    
     var body: some View {
         
         VStack {
@@ -22,10 +24,16 @@ struct ChatsView: View {
             }
             
             //İnput textfield
+            CustomInputView(text: $messageText, action: sendMessage)
         }
         .navigationTitle("Bruce Wayne")
         .navigationBarTitleDisplayMode(.inline)
         .padding(.vertical)
+    }
+    
+    func sendMessage() {
+        print("Send message \(messageText)")
+        messageText = ""
     }
 }
 

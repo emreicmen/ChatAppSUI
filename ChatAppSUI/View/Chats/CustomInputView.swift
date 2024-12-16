@@ -8,11 +8,33 @@
 import SwiftUI
 
 struct CustomInputView: View {
+    
+    @Binding var text: String
+    var action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Rectangle()
+                .foregroundColor(Color(.separator))
+                .frame(width: UIScreen.main.bounds.width, height: 0.75)
+            HStack{
+                TextField("Message here...", text: $text)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .font(.body)
+                    .frame(minHeight: 30)
+                Button("", systemImage: "paperplane.fill") {
+                    action()
+                }
+                .buttonBorderShape(.roundedRectangle(radius: 16))
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+                .padding(.trailing, 2)
+
+            }
+        }
     }
 }
 
 #Preview {
-    CustomInputView()
+    //CustomInputView(text: .constant("Message"), action: <#T##() -> Void#>)
 }

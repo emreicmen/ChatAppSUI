@@ -6,6 +6,7 @@
 //
 
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthViewModel: NSObject, ObservableObject {
     
@@ -20,9 +21,17 @@ class AuthViewModel: NSObject, ObservableObject {
                 print("DEBUG: Failed to register wiht error: \(error.localizedDescription)")
                 return
             }
-            print("DEBUG: Successfully registered user with firebase!!!")
+            
+            guard let user = result?.user else {return}
+            
+            let data: [String: Any] = ["email": email,
+                                       "userName:": userName,
+                                       "fullName:": fullName]
+            
+            Firestore.firestore().collection("Users").document(user.uid).setData(data) { _ in
+                print("DEBUG: Succesfully updated user info in firestore")
+            }
         }
-       
     }
     
     func uploadProfileImage() {

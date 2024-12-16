@@ -23,13 +23,13 @@ struct RegistrationView: View {
                 HStack {
                     Spacer()
                 }
-                Text("Get tarted!")
+                Text("Get Started!")
                     .font(.largeTitle)
                     .bold()
                 Text("Create your Account")
                     .font(.largeTitle)
                     .bold()
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.green)
                 
                 VStack(spacing: 25){
                     CustomTextField(imageName: "envelope.fill", placeHolderText: "E-mail", isSecureField: false, text: $email)

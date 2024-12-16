@@ -5,8 +5,10 @@
 //  Created by Emre İÇMEN on 16.12.2024.
 //
 
+import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import SwiftUICore
 
 class AuthViewModel: NSObject, ObservableObject {
     
@@ -34,8 +36,8 @@ class AuthViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadProfileImage() {
-        
+    func uploadProfileImage(image: UIImage?) {
+        print("Profile Image uploaded")
     }
     
     func signOut() {

@@ -37,6 +37,7 @@ struct ProfilePhotoSelectorView: View {
                         .foregroundColor(.blue)
                 }
             }
+            //.sheet depricated. Use this to keep updated
             .fullScreenCover(isPresented: $imagePickerPresented, onDismiss: loadImage) {
                 ImagePicker(image: $selectedImage)
             }

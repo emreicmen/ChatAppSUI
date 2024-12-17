@@ -19,7 +19,10 @@ class AuthViewModel: NSObject, ObservableObject {
     static let shared = AuthViewModel()
     
     override init() {
+        super.init()
         userSession = Auth.auth().currentUser
+        
+        self.fetchUsers()
     }
     
     func login(withEmail email: String, password: String) {
@@ -28,10 +31,8 @@ class AuthViewModel: NSObject, ObservableObject {
                 print("DEBUG: Failed to sign in with error: \(error.localizedDescription)")
                 return
             }
-        
             self.userSession = result?.user
         }
-        
     }
     
     func register(withEmail email: String, password: String, fullName: String, userName: String) {
@@ -56,10 +57,7 @@ class AuthViewModel: NSObject, ObservableObject {
     }
     
     func uploadProfileImage(_ image: UIImage) {
-        guard let uid = tempCurrentUser?.uid else {
-            return
-        }
-        
+        guard let uid = tempCurrentUser?.uid else { return }
         ImageUploader.uploadImage(image: image) { imageUrl in
             Firestore.firestore().collection("Users").document(uid).updateData(["profileImageUrl": imageUrl]) { _ in
             }
@@ -69,6 +67,15 @@ class AuthViewModel: NSObject, ObservableObject {
     func signOut() {
         self.userSession = nil
         try? Auth.auth().signOut()
+    }
+    
+    func fetchUsers() {
+        guard let uid = userSession?.uid else { return }
+        
+        Firestore.firestore().collection("Users").document(uid).getDocument { snapshot, _ in
+            guard let data = snapshot?.data() else { return }
+            print(data)
+        }
     }
     
 }

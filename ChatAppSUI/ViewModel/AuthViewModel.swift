@@ -9,10 +9,10 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import SwiftUICore
-
 class AuthViewModel: NSObject, ObservableObject {
     
     @Published var didAuthenticateUser = false
+    private var tempCurrentUser: FirebaseAuth.User?
     
     func login() {
         print("Login user from viewModel...")
@@ -27,7 +27,8 @@ class AuthViewModel: NSObject, ObservableObject {
             }
             
             guard let user = result?.user else {return}
-            
+            self.tempCurrentUser = user
+
             let data: [String: Any] = ["email": email,
                                        "userName:": userName,
                                        "fullName:": fullName]
@@ -38,8 +39,17 @@ class AuthViewModel: NSObject, ObservableObject {
         }
     }
     
-    func uploadProfileImage(image: UIImage?) {
-        print("Profile Image uploaded")
+    func uploadProfileImage(_ image: UIImage) {
+        guard let uid = tempCurrentUser?.uid else {
+            print("DEBUG: Failed to set temp current user")
+            return
+        }
+        
+        ImageUploader.uploadImage(image: image) { imageUrl in
+            Firestore.firestore().collection("Users").document(uid).updateData(["profileImageUrl": imageUrl]) { _ in
+                print("DEBUG: Succesfully updated user data")
+            }
+        }
     }
     
     func signOut() {

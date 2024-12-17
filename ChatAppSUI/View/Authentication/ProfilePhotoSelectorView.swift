@@ -12,9 +12,8 @@ struct ProfilePhotoSelectorView: View {
     @State private var imagePickerPresented = false
     @State private var selectedImage: UIImage?
     @State private var profileImage: Image?
-    //@EnvironmentObject var viewModel: AuthViewModel
-    @ObservedObject var viewModel = AuthViewModel()
-    
+    @EnvironmentObject var viewModel: AuthViewModel
+
     var body: some View {
         VStack{
             Button {
@@ -47,7 +46,7 @@ struct ProfilePhotoSelectorView: View {
             
             if let image = selectedImage {
                 Button {
-                    viewModel.uploadProfileImage(image: image)
+                    viewModel.uploadProfileImage(image)
                 } label: {
                     Text("Continue")
                         .font(.headline)

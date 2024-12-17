@@ -32,6 +32,15 @@ struct RegistrationView: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(.green)
+                HStack {
+                    Spacer()
+                    Image("ChatAppLogo")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 200, height: 200)
+                        .padding([.top, .bottom], 30)
+                    Spacer()
+                }
                 
                 VStack(spacing: 25){
                     CustomTextField(imageName: "envelope.fill", placeHolderText: "E-mail", isSecureField: false, text: $email)
@@ -40,7 +49,6 @@ struct RegistrationView: View {
                     CustomTextField(imageName: "lock.shield", placeHolderText: "Password", isSecureField: true, text: $password)
                 }
                 .padding(.horizontal,15)
-                .padding(.top, 150)
             }
             .padding(.leading)
             Button {

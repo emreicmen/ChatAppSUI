@@ -47,8 +47,8 @@ class AuthViewModel: NSObject, ObservableObject {
             self.tempCurrentUser = user
 
             let data: [String: Any] = ["email": email,
-                                       "userName:": userName,
-                                       "fullName:": fullName]
+                                       "userName": userName,
+                                       "fullName": fullName]
             
             Firestore.firestore().collection("Users").document(user.uid).setData(data) { _ in
                 self.didAuthenticateUser = true
@@ -68,14 +68,13 @@ class AuthViewModel: NSObject, ObservableObject {
         self.userSession = nil
         try? Auth.auth().signOut()
     }
-    
     func fetchUsers() {
         guard let uid = userSession?.uid else { return }
         
         Firestore.firestore().collection("Users").document(uid).getDocument { snapshot, _ in
-            guard let data = snapshot?.data() else { return }
-            print(data)
+            guard let user = try? snapshot?.data(as: User.self) else { return }
+            print("DEBUG: User object is \(user)")
+
         }
     }
-    
 }

@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserCell: View {
+    
+    let user: User
+    
     var body: some View {
         VStack {
             HStack {
-                //İmage
-                Image("batman")
+                KFImage(URL(string: user.profileImageUrl))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 45, height: 45)
@@ -20,9 +23,9 @@ struct UserCell: View {
                 
                 //Message Info
                 VStack(alignment: .leading) {
-                    Text("The Batman")
+                    Text(user.userName)
                         .font(.system(size: 15, weight: .semibold))
-                    Text("Bruce Wayne")
+                    Text(user.fullName)
                         .font(.system(size: 13))
                 }
                 .foregroundColor(.black)
@@ -34,5 +37,5 @@ struct UserCell: View {
 }
 
 #Preview {
-    UserCell()
+    //UserCell()
 }

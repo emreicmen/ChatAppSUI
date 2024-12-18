@@ -13,6 +13,7 @@ struct NewMessageView: View {
     @Environment(\.presentationMode) var mode
     @State private var searchText = ""
     @State private var isEditing = false
+    @ObservedObject var viewModel = NewMessageViewModel()
     
     var body: some View {
         ScrollView {
@@ -22,12 +23,12 @@ struct NewMessageView: View {
                 }
                 .padding()
             VStack(alignment: .leading){
-                ForEach((0...10), id: \.self){ _ in
+                ForEach((viewModel.users)){ user in
                     Button {
                         showChatView.toggle()
                         mode.wrappedValue.dismiss()
                     } label: {
-                        UserCell()
+                        UserCell(user: user)
                     }
 
                 }

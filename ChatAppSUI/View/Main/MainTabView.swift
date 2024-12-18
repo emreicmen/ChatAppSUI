@@ -42,6 +42,8 @@ struct MainTabView: View {
                 }
                 .navigationTitle(tabTitle)
             }
+        } else {
+            LoginView()
         }
     }
     

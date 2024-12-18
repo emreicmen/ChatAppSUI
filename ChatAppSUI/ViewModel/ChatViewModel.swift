@@ -15,6 +15,40 @@ class ChatViewModel: ObservableObject {
     
     init(user: User) {
         self.user = user
+        
+        fetchMessages()
+    }
+    
+    func fetchMessages() {
+        
+        guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
+        guard let chatPartnerId = user.id else { return }
+        
+        let query = COLLECTION_MESSAGES.document(currentUid).collection(chatPartnerId)
+        
+        query.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching documents: \(error)")
+                return
+            }
+
+            guard let documents = snapshot?.documents else {
+                print("No documents found.")
+                return
+            }
+
+            do {
+                self.messages = try documents.compactMap { document in
+                    try document.data(as: Message.self)
+                }
+                for message in self.messages {
+                    print("golem: \(message)")
+                }
+            } catch {
+                print("Error decoding documents: \(error)")
+            }
+        }
+
     }
     
     func sendMessage(_ messageText: String) {

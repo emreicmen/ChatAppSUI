@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SettingsHeaderView: View {
     
@@ -17,7 +18,7 @@ struct SettingsHeaderView: View {
     
     var body: some View {
         HStack{
-            Image("batman")
+            KFImage(URL(string: user.profileImageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 65, height: 65)

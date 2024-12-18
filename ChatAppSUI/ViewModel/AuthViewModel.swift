@@ -33,6 +33,7 @@ class AuthViewModel: NSObject, ObservableObject {
                 return
             }
             self.userSession = result?.user
+            self.fetchUsers()
         }
     }
     
@@ -69,6 +70,7 @@ class AuthViewModel: NSObject, ObservableObject {
         self.userSession = nil
         try? Auth.auth().signOut()
     }
+    
     func fetchUsers() {
         guard let uid = userSession?.uid else { return }
         

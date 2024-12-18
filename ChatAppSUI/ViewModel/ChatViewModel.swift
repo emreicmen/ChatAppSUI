@@ -6,30 +6,36 @@
 //
 
 import Foundation
+import Firebase
 
 class ChatViewModel: ObservableObject {
     
     @Published var messages = [Message]()
+    let user: User
     
-    init() {
-        messages = mockMessages
-    }
-    
-    var mockMessages: [Message] {
-        [
-            .init(isFromCurrentUser: true, messageText: "Hey what's up man"),
-            .init(isFromCurrentUser: false, messageText: "Where have you been"),
-            .init(isFromCurrentUser: true, messageText: "What is game what we will play on tonight"),
-            .init(isFromCurrentUser: false, messageText: "Did you hear all of those messages"),
-            .init(isFromCurrentUser: true, messageText: "Yea! I head of course"),
-            .init(isFromCurrentUser: false, messageText: "Let roll than!!"),
-            .init(isFromCurrentUser: true, messageText: "Sure lets roll some balls!!!")
-        ]
+    init(user: User) {
+        self.user = user
     }
     
     func sendMessage(_ messageText: String) {
-        let message = Message(isFromCurrentUser: true, messageText: messageText)
-        messages.append(message)
+        
+        guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
+        guard let chatPartnerId = user.id else { return }
+        
+        let currentUserRef = COLLECTION_MESSAGES.document(currentUid).collection(chatPartnerId).document()
+        
+        let chatPartnerRef = COLLECTION_MESSAGES.document(chatPartnerId).collection(currentUid)
+        
+        let messageId = currentUserRef.documentID
+        
+        let data: [String: Any] = ["text": messageText,
+                                   "fromId": currentUid,
+                                   "toId": chatPartnerId,
+                                   "read": false,
+                                   "timestamp": Timestamp(date: Date())]
+        
+        currentUserRef.setData(data)
+        chatPartnerRef.document(messageId).setData(data)
     }
     
 }

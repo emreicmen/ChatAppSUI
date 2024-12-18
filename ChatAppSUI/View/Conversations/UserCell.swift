@@ -31,11 +31,12 @@ struct UserCell: View {
                 .foregroundColor(.black)
                 Spacer()
             }
+            .padding(.leading, 10)
         }
         .padding(.top)
     }
 }
 
 #Preview {
-    //UserCell()
+    UserCell(user: MOCK_USER)
 }

@@ -13,6 +13,7 @@ struct NewMessageView: View {
     @Environment(\.presentationMode) var mode
     @State private var searchText = ""
     @State private var isEditing = false
+    @Binding var user: User?
     @ObservedObject var viewModel = NewMessageViewModel()
     
     var body: some View {
@@ -26,6 +27,7 @@ struct NewMessageView: View {
                 ForEach((viewModel.users)){ user in
                     Button {
                         showChatView.toggle()
+                        self.user = user
                         mode.wrappedValue.dismiss()
                     } label: {
                         UserCell(user: user)
@@ -38,5 +40,5 @@ struct NewMessageView: View {
 }
 
 #Preview {
-    NewMessageView(showChatView: .constant(true))
+    //NewMessageView(showChatView: .constant(true))
 }

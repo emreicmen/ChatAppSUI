@@ -29,7 +29,7 @@ class NewMessageViewModel: ObservableObject {
 //            }
             
             //This is the shotrcut for appending users to users array
-            self.users = documents.compactMap({ try? $0.data(as: User.self) })
+            self.users = documents.compactMap({ try? $0.data(as: User.self) }).filter({ $0.id != AuthViewModel.shared.userSession?.uid })
             
             print("DEBUG: Users: \(self.users)")
 

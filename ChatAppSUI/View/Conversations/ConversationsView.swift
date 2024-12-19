@@ -27,7 +27,7 @@ struct ConversationsView: View {
                         NavigationLink {
                             ChatsView(user: MOCK_USER)
                         } label: {
-                            ConversationCell(viewModel: MessageViewModel(message: message))
+                            ConversationCell(viewModel: MessageViewModel(message))
                         }
                         .padding(.horizontal)
                     }

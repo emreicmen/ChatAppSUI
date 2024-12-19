@@ -41,14 +41,26 @@ class ChatViewModel: ObservableObject {
                 self.messages = try documents.compactMap { document in
                     try document.data(as: Message.self)
                 }
+                
+                // Kullanıcının ID'sine göre user ekleme
+                for (index, message) in self.messages.enumerated() where message.fromId != currentUid {
+                    self.messages[index].user = self.user
+                }
                 for message in self.messages {
                     print("golem: \(message)")
                 }
+                
+                // Gönderim zamanına göre sıralama
+                self.messages.sort {
+                    let date1 = $0.timestamp.dateValue()
+                    let date2 = $1.timestamp.dateValue()
+                    return date1 < date2
+                }
+                
             } catch {
                 print("Error decoding documents: \(error)")
             }
         }
-
     }
     
     func sendMessage(_ messageText: String) {

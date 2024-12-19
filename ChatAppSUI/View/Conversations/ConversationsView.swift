@@ -24,11 +24,7 @@ struct ConversationsView: View {
             ScrollView {
                 VStack(alignment: .leading){
                     ForEach(viewModel.recentMessages){ message in
-                        NavigationLink {
-                            ChatsView(user: MOCK_USER)
-                        } label: {
-                            ConversationCell(viewModel: MessageViewModel(message))
-                        }
+                        ConversationCell(viewModel: ConversationCellViewModel(message))
                         .padding(.horizontal)
                     }
                 }

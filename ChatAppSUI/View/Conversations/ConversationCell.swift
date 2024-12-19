@@ -10,32 +10,34 @@ import Kingfisher
 
 struct ConversationCell: View {
     
-    @ObservedObject var viewModel: MessageViewModel
-    
-    
+    @ObservedObject var viewModel: ConversationCellViewModel
+        
     var body: some View {
-        VStack {
-            HStack {
-                KFImage(viewModel.charPartnerProfileImageUrl)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
-                
-                VStack(alignment: .leading) {
-                    Text(viewModel.fullName)
-                        .font(.system(size: 15, weight: .semibold))
-                    Text(viewModel.message.text)
-                        .font(.system(size: 13))
+        if let user = viewModel.message.user {
+            NavigationLink {
+                ChatsView(user: user)
+            } label: {
+                VStack {
+                    HStack {
+                        KFImage(viewModel.charPartnerProfileImageUrl)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                        
+                        VStack(alignment: .leading) {
+                            Text(viewModel.fullName)
+                                .font(.system(size: 15, weight: .semibold))
+                            Text(viewModel.message.text)
+                                .font(.system(size: 13))
+                        }
+                        .foregroundColor(.black)
+                        Spacer()
+                    }
+                    Divider()
                 }
-                .foregroundColor(.black)
-                Spacer()
+                .padding(.top)
             }
-            Divider()
-        }
-        .padding(.top)
-        .onAppear {
-            viewModel.fetchUser()
         }
     }
 }

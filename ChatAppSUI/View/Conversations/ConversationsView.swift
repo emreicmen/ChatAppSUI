@@ -46,7 +46,9 @@ struct ConversationsView: View {
             .sheet(isPresented: $showNewMessageView, content: {
                 NewMessageView(showChatView: $showChatView, user: $selectedUser)
             })
-
+        }
+        .onAppear{
+            viewModel.fetchRecentMessages()
         }
     }
 }
